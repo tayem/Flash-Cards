@@ -33,7 +33,6 @@ var main = new UI.Card({
   body: 'Press select button to go to menu.'
 });
 
-
 main.show();
 
 main.on('click', 'up', function(e) {
@@ -41,13 +40,15 @@ main.on('click', 'up', function(e) {
 });
 
 main.on('click', 'select', function(e) {
-
+  var card = new UI.Card();
+  var random =  Math.floor(Math.random() * (words.length - 1)) + 1;	
+  card.title(words[random]);
+  card.subtitle('What/who is this?');
+  card.body('Press select to show the definiton!');
+  card.show();
+	
 });
 	
 main.on('click', 'down', function(e) {
-  var card = new UI.Card();
-  card.title('A Card');
-  card.subtitle('Is a Window');
-  card.body('The simplest window type in Pebble.js.');
-  card.show();
+
 });
