@@ -4,7 +4,7 @@
         ""
     ],
     "companyName": "abdeltayem@gmail.com",
-    "longName": "Bruh Pebble",
+    "longName": "Flash Cards",
     "projectType": "pebblejs",
     "resources": {
         "media": [
@@ -31,10 +31,10 @@
             }
         ]
     },
-    "shortName": "Bruh Pebble",
-    "uuid": "2314c9dc-5fde-4197-8b22-c67a79764133",
+    "shortName": "Flash Cards",
+    "uuid": "7dedcba8-8c70-4580-8bdb-0084e8e947e4",
     "versionCode": 1,
-    "versionLabel": "1.0",
+    "versionLabel": "0.1",
     "watchapp": {
         "watchface": false
     }
