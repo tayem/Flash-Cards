@@ -1,9 +1,3 @@
-/**
- * Welcome to Pebble.js!
- *
- * This is where you write your app.
- */
-
 var UI = require('ui');
 var Vector2 = require('vector2');
 var words = ["Jacobins",
@@ -26,6 +20,8 @@ var definitions = ["Extremist group, the Montagnards.",
 			"The palace where Louis was kept after the Flight to Varennes.",
 			"The previous monarch ruling France who is executed to show the death of the constitutional monarchy.",
 			"The most extreme member of the Jacobins, started the Reign of Terror and wanted complete power."];
+var shownWords = words;
+var shownDefinitions = definitions;
 var main = new UI.Card({
   title: 'Flashcards',
   icon: 'images/menu_icon.png',
@@ -40,13 +36,26 @@ main.on('click', 'up', function(e) {
 });
 
 main.on('click', 'select', function(e) {
-  var card = new UI.Card();
-  var random =  Math.floor(Math.random() * (words.length - 1)) + 1;	
-  card.title(words[random]);
-  card.subtitle('What/who is this?');
-  card.body('Press select to show the definiton!');
-  card.show();
+	var random =  Math.floor(Math.random() * (shownWords.length - 1)) + 1;	
+	var card = new UI.Card({
+		title: shownWords[random],
+		subtitle: 'What/Who is this?',
+		body: 'Press select to go to the definition!',
+		scrollable: true
+	});
+	card.show();
 	
+	card.on('click', 'select', function(e){
+		var defCard = new UI.Card({
+			title: shownWords[random],
+			subtitle: shownDefinitions[random],
+			body: 'Press select to go to the next word!',
+			scrollable: true
+		});
+		shownDefinitions.splice(random, 1);
+		shownWords.splice(random, 1);
+		defCard.show();	
+	})
 });
 	
 main.on('click', 'down', function(e) {
