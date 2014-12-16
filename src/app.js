@@ -1,20 +1,19 @@
 var UI = require('ui');
-var Vector2 = require('vector2');
 var words = ["Jacobins",
-			 "Sans-culottes",
-			 "Girondins",
-			 "Marat",
-			 "Danton",
-			 "National Convention",
-			 "September Massacres",
-			 "Tuiliries",
-			 "Louis XVI",
-			 "Robespierre"];
+			"Sans-culottes",
+			"Girondins",
+			"Marat",
+			"Danton",
+			"National Convention",
+			"September Massacres",
+			"Tuiliries",
+			"Louis XVI",
+			"Robespierre"];
 var definitions = ["Extremist group, the Montagnards.",
 			"Mass Mobs who wanted extreme change.",
 			"Moderate Republicans.",
 			"Extremist doctor; part of the Jacobins.",
-		    "Man of the people, one of the leaders of the Jacobins and an extremist as well.",
+			"Man of the people, one of the leaders of the Jacobins and an extremist as well.",
 			"The group of individuals assigned power over the government of the people.",
 			"The killing of monarchists, the public and sans-culottes went to the Tuiliries and killed all the opposition.",
 			"The palace where Louis was kept after the Flight to Varennes.",
@@ -55,9 +54,9 @@ main.on('click', 'select', function(e) {
 		shownDefinitions.splice(random, 1);
 		shownWords.splice(random, 1);
 		defCard.show();	
-	})
+	});
 });
-	
+
 main.on('click', 'down', function(e) {
 
 });
