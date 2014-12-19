@@ -1,4 +1,7 @@
 var UI = require('ui');
+var cardState = "word";
+var done = false;
+var random = "blahblahblah";
 var words = ["Jacobins",
 			"Sans-culottes",
 			"Girondins",
@@ -19,44 +22,61 @@ var definitions = ["Extremist group, the Montagnards.",
 			"The palace where Louis was kept after the Flight to Varennes.",
 			"The previous monarch ruling France who is executed to show the death of the constitutional monarchy.",
 			"The most extreme member of the Jacobins, started the Reign of Terror and wanted complete power."];
-var shownWords = words;
-var shownDefinitions = definitions;
-var main = new UI.Card({
-  title: 'Flashcards',
-  icon: 'images/menu_icon.png',
-  subtitle: 'The best way to study!',
-  body: 'Press select button to go to menu.'
+var notShownWords = words;
+var notShownDefinitions = definitions;
+
+UI.Card.prototype.updateTitle = function(newTitle){
+	this.title = newTitle;
+	return null;
+};
+
+var card = new UI.Card({
+	title: 'Flashcards',
+	subtitle: 'The best way to study!',
+	body: 'Press select button to go to menu.',
+	scrollable: true
+});
+card.show();
+
+var manageData = function(){
+	console.log("You have clicked a button. This proves that you are smart enough to be on congress.");
+	if ( notShownWords.length === 0 ) {
+			console.log("No words remaining.");
+			done = true;
+			return;
+	}
+	console.log("If statement to check for remaining words done.");
+	if (cardState === "word") {
+		console.log("Word Branch: Initialized.");
+		random = Math.floor(Math.random() * (notShownWords.length - 1)) + 1;	
+		console.log("Word Branch: Next Card Chosen.");
+		card.title(notShownWords[random]);
+		card.subtitle('What/Who is this?');
+		card.body('Press select to go to the definition!');
+		console.log("Word Branch: Card Updated.");
+		console.log("Word Branch: Card Shown.");
+		console.log("Test - Title of current card = '"+card.title+"'.");
+		cardState = "definition";
+		console.log("Word Branch: Card State Changed To Definition.");
+	}
+	else{
+		console.log("Definition Branch: Initialized.");
+		card.title(notShownWords[random]);
+		card.subtitle(notShownDefinitions[random]);
+		card.body('Press select to go to the next word!');
+		console.log("Definition Branch: Card Updated.");
+		notShownDefinitions.splice(random, 1);
+		notShownWords.splice(random, 1);
+		console.log("Definition Branch: Remaining Words Spliced.");	
+		console.log("Definition Branch: Card Shown.");
+		console.log("Test - Title of current card = '"+card.title+"'.");
+		cardState = "word";
+		console.log("Definition Branch: Card State Changed To Word.");
+	}
+};
+
+card.on('click', 'select', function(e) {
+	manageData();
 });
 
-main.show();
-
-main.on('click', 'up', function(e) {
-
-});
-
-main.on('click', 'select', function(e) {
-	var random =  Math.floor(Math.random() * (shownWords.length - 1)) + 1;	
-	var card = new UI.Card({
-		title: shownWords[random],
-		subtitle: 'What/Who is this?',
-		body: 'Press select to go to the definition!',
-		scrollable: true
-	});
-	card.show();
-	
-	card.on('click', 'select', function(e){
-		var defCard = new UI.Card({
-			title: shownWords[random],
-			subtitle: shownDefinitions[random],
-			body: 'Press select to go to the next word!',
-			scrollable: true
-		});
-		shownDefinitions.splice(random, 1);
-		shownWords.splice(random, 1);
-		defCard.show();	
-	});
-});
-
-main.on('click', 'down', function(e) {
-
-});
+console.log("Magical click function of destiny has been defined.");

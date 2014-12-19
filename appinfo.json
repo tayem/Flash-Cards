@@ -34,7 +34,7 @@
     "shortName": "Flash Cards",
     "uuid": "7dedcba8-8c70-4580-8bdb-0084e8e947e4",
     "versionCode": 1,
-    "versionLabel": "0.1",
+    "versionLabel": "0.5",
     "watchapp": {
         "watchface": false
     }
