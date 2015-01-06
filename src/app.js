@@ -15,13 +15,13 @@ var baseLibrary = [
 	["Jacobins",				"Extremist group, the Montagnards."],
 	["Sans-culottes",			"Mass Mobs who wanted extreme change."],
 	["Girondins",				"Moderate Republicans."],
-//	["Marat",					"Extremist doctor; part of the Jacobins."],
-//	["Danton",					"Man of the people, one of the leaders of the Jacobins and an extremist as well."],
-//	["National Convention",		"The group of individuals assigned power over the government of the people."],
-//	["September Massacres",		"The killing of monarchists, the public and sans-culottes went to the Tuiliries and killed all the opposition."],
-//	["Tuiliries",				"The palace where Louis was kept after the Flight to Varennes."],
-//	["Louis XVI",				"The previous monarch ruling France who is executed to show the death of the constitutional monarchy."],
-//	["Robespierre",				"The most extreme member of the Jacobins, started the Reign of Terror and wanted complete power."]
+    ["Marat",					"Extremist doctor; part of the Jacobins."],
+	["Danton",					"Man of the people, one of the leaders of the Jacobins and an extremist as well."],
+	["National Convention",		"The group of individuals assigned power over the government of the people."],
+	["September Massacres",		"The killing of monarchists, the public and sans-culottes went to the Tuiliries and killed all the opposition."],
+	["Tuiliries",				"The palace where Louis was kept after the Flight to Varennes."],
+	["Louis XVI",				"The previous monarch ruling France who is executed to show the death of the constitutional monarchy."],
+	["Robespierre",				"The most extreme member of the Jacobins, started the Reign of Terror and wanted complete power."]
 ];
 
 //Table of words the user doesn't know the definition of.
@@ -41,10 +41,17 @@ var card = new UI.Card({
 card.show();
 
 //All app logic.
+
 var manageData = function(clickType){
 	//Whether it is a long or short click, this prints.
 	console.log("You have clicked a button. This proves that you are smart enough to be on congress.");
-	
+	if (activeLibrary.length === 0 || baseLibrary.length === 0){
+		console.log("No words remaining.");
+		card.title("Round Complete!");
+		card.subtitle("No Words Remaining at all.");
+		card.body("Press select again to restart using all words.");
+		return;
+	}
 	if ( clickType === "s" ) {
 		console.log("#ShortClick2015");
 		
@@ -137,3 +144,4 @@ card.on('longClick', 'select', function(e) {
 
 //Log this when everything is defined.
 console.log("Magical click functions of destiny have been defined.");
+
