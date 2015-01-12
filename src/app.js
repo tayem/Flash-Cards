@@ -15,7 +15,7 @@ var baseLibrary = [
 	["Jacobins",				"Extremist group, the Montagnards."],
 	["Sans-culottes",			"Mass Mobs who wanted extreme change."],
 	["Girondins",				"Moderate Republicans."],
-    ["Marat",					"Extremist doctor; part of the Jacobins."],
+	["Marat",					"Extremist doctor; part of the Jacobins."],
 	["Danton",					"Man of the people, one of the leaders of the Jacobins and an extremist as well."],
 	["National Convention",		"The group of individuals assigned power over the government of the people."],
 	["September Massacres",		"The killing of monarchists, the public and sans-culottes went to the Tuiliries and killed all the opposition."],
@@ -25,10 +25,10 @@ var baseLibrary = [
 ];
 
 //Table of words the user doesn't know the definition of.
-var unknownLibrary = baseLibrary;
+var unknownLibrary = baseLibrary.slice();
 	
 //Table of words in the current round, used to make sure the same word isnt used multiple times in the same round.
-var activeLibrary = unknownLibrary;
+var activeLibrary = baseLibrary.slice();
 
 //Define Card class, this is also the title card.
 var card = new UI.Card({
@@ -43,15 +43,13 @@ card.show();
 //All app logic.
 
 var manageData = function(clickType){
+	console.log("Unknown: "+unknownLibrary.length.toString());
+	console.log(unknownLibrary);
+	console.log("Active: "+activeLibrary.length.toString());
+	console.log(activeLibrary);
+	
 	//Whether it is a long or short click, this prints.
 	console.log("You have clicked a button. This proves that you are smart enough to be on congress.");
-	if (activeLibrary.length === 0 || baseLibrary.length === 0){
-		console.log("No words remaining.");
-		card.title("Round Complete!");
-		card.subtitle("No Words Remaining at all.");
-		card.body("Press select again to restart using all words.");
-		return;
-	}
 	if ( clickType === "s" ) {
 		console.log("#ShortClick2015");
 		
@@ -64,8 +62,8 @@ var manageData = function(clickType){
 			viewedWarning = true;
 			return;
 		}else if( unknownLibrary.length === 0 && viewedWarning === true ){
-			unknownLibrary = baseLibrary;
-			activeLibrary = unknownLibrary;
+			unknownLibrary = baseLibrary.slice();
+			activeLibrary = unknownLibrary.slice();
 			viewedWarning = false;
 			return;
 		}	
@@ -79,7 +77,7 @@ var manageData = function(clickType){
 			viewedWarning = true;
 			return;
 		}else if( activeLibrary.length === 0 && viewedWarning === true ){
-			activeLibrary = unknownLibrary;
+			activeLibrary = unknownLibrary.slice();
 			viewedWarning = false;
 			return;
 		}
@@ -108,18 +106,28 @@ var manageData = function(clickType){
 			card.body('Press select to go to the next word!');
 			console.log("Definition Branch: Card Updated.");
 			//Remove word from the active list.
-			activeLibrary.splice(random, 1);
+			if (activeLibrary.length === 1) {
+				activeLibrary = [];
+			}else{
+				activeLibrary.splice(random, 1);
+			}
 			console.log("Definition Branch: Remaining Words Spliced.");	
 			console.log("Definition Branch: Card Shown.");
 			cardState = "word";
 			console.log("Definition Branch: Card State Changed To Word.");
 		}
 	}else if ( clickType === "l" ){
+		console.log("YOU'RE SUCH A POTATO!");
 		console.log("#LongClick2015");
 		console.log("And on top of clicking a button, you held it too! You could be a presidential candidate!");
 		if (cardState === "word") {
 			console.log("This word has been removed from the library, as you have stated you know it.");
-			unknownLibrary.splice(random, 1);
+			card.subtitle("You know this word!");
+			if ( unknownLibrary.length === 1 ) {
+				unknownLibrary = [];
+			}else{
+				unknownLibrary.splice(random, 1);
+			}
 		}
 		else{
 			console.log("You aren't even on a word!");
